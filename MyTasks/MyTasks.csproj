@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <UserSecretsId>aspnet-MyTasks-1BAB3E11-AE6D-4EB9-B5A0-6F81FC6190A0</UserSecretsId>
+	<LangVersion>12.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Persistence\Migrations\00000000000000_CreateIdentitySchema.cs" />
+    <Compile Remove="Persistence\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20250527071202_Init.cs" />
+    <Compile Remove="Persistence\Migrations\20250527071202_Init.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20250527113224_AddTasksTable.cs" />
+    <Compile Remove="Persistence\Migrations\20250527113224_AddTasksTable.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20250606053742_Init.cs" />
+    <Compile Remove="Persistence\Migrations\20250606053742_Init.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20250608071716_Init.cs" />
+    <Compile Remove="Persistence\Migrations\20250608071716_Init.Designer.cs" />
+    <Compile Remove="Persistence\Migrations\20250608072356_Init.cs" />
+    <Compile Remove="Persistence\Migrations\20250608072356_Init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.32" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.32">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="NLog.Config" Version="4.7.15" />
+  </ItemGroup>
+
+</Project>

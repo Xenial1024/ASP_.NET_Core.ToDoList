@@ -1,0 +1,162 @@
+﻿<h1 class="mb-3">Kategorie</h1>
+@{
+    ViewBag.Title = "Kategorie";
+}
+@Html.AntiForgeryToken()
+@model IEnumerable<MyTasks.Core.Models.Domains.Category>
+
+<div class="form-group">
+    <div id="categoryErrorMessage" class="alert alert-danger" style="display: none;"></div>
+    <div id="categorySuccessMessage" class="alert alert-success" style="display: none;"></div>
+
+    <div class="input-group mb-3">
+        <input type="text" id="categoryName" class="form-control" placeholder="Nazwa kategorii" />
+        <button type="button" class="btn btn-success" onclick="saveNewCategory()">
+            Dodaj kategorię
+        </button>
+    </div>
+</div>
+
+<div>
+    @await Html.PartialAsync("_CategoriesTable", Model)
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const saveNewCategory = () => {
+        let name = $('#categoryName').val();
+
+        if (!name || name.trim() === '') {
+            showErrorMessage('Nazwa kategorii jest wymagana.');
+            $('#categorySuccessMessage').hide();
+            return;
+        }
+        if (name.length>50) {
+            showErrorMessage('Nazwa może mieć maksymalnie 50 znaków.');
+            $('#categorySuccessMessage').hide();
+            return;
+        }
+
+        $('#categoryErrorMessage').hide();
+        $('#categorySuccessMessage').hide();
+
+        const token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Add", "Categories")",
+            data: {
+                name: name,
+                __RequestVerificationToken: token
+            },
+            success: (data) => {
+                if (data.success) {
+                    showSuccessMessage('Kategoria została dodana pomyślnie.');
+                        $('#categoryName').val('');
+
+                    refreshCategoriesTable();
+                } 
+            },
+            error: (xhr, status, error) => {
+                showErrorMessage('Wystąpił błąd podczas dodawania kategorii.');
+            },
+            dataType: 'json'
+        });
+    }
+
+    // Dodaj obsługę Enter w polu tekstowym
+    $('#categoryName').keypress(function(e) {
+        if (e.which == 13) 
+            saveNewCategory();
+    });
+
+        function addCategoryToTable(categoryId, categoryName) {
+        let newRow = `
+        <tr>
+            <td class="name-column">${categoryName}</td>
+            <td class="actions-column">
+                <div class="btn-group-actions">
+                    <button type="button" class="btn btn-primary btn-sm" style="width: 85px; font-size: 1rem; padding: 0.2rem 0.35rem;" onclick="editCategory(${categoryId}, '${categoryName}')">Edytuj</button>
+                    <button type="button" class="btn btn-danger btn-sm" style="width: 85px; font-size: 1rem; padding: 0.2rem 0.35rem;" onclick="deleteCategory(${categoryId})">Usuń</button>
+                </div>
+            </td>
+        </tr>
+    `;
+        $('#categoriesTableBody').append(newRow);
+    }
+
+        function refreshCategoriesTable() {
+            $.get('@Url.Action("GetCategoriesTable", "Categories")', function(data) {
+                $('.categories-table').replaceWith(data);
+            });
+        }
+
+        function editCategory(id, currentName) {
+            let newName = prompt('Podaj nową nazwę kategorii:', currentName);
+            if (!newName || newName.trim() === '' || newName === currentName) 
+                return;
+
+        const token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Edit", "Categories")",
+            data: {
+                id: id,
+                name: newName,
+                __RequestVerificationToken: token
+            },
+            success: (data) => {
+                if (data.success) {
+                    // Zaktualizuj nazwę w tabeli
+                    $(`button[onclick*="editCategory(${id}"]`).closest('tr').find('td:first').text(newName);
+                    // Zaktualizuj onclick dla przyszłych edycji
+                    $(`button[onclick*="editCategory(${id}"]`).attr('onclick', `editCategory(${id}, '${newName}')`);
+                    showSuccessMessage('Kategoria została zaktualizowana pomyślnie.');
+                } 
+            },
+            error: (xhr, status, error) => {
+                alert('Wystąpił błąd podczas edycji kategorii.');
+            },
+            dataType: 'json'
+        });
+    }
+
+    function deleteCategory(id) {
+        if (!confirm('Czy na pewno chcesz usunąć tę kategorię?')) 
+            return;
+
+        const token = $('input[name="__RequestVerificationToken"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("Delete", "Categories")",
+            data: {
+                id: id,
+                __RequestVerificationToken: token
+            },
+            success: (data) => {
+                if (data.success) {
+                    // Usuń wiersz z tabeli
+                    $(`button[onclick*="deleteCategory(${id}"]`).closest('tr').remove();
+
+                    showSuccessMessage('Kategoria została usunięta pomyślnie.');
+                }
+            },
+            error: (xhr, status, error) => {
+                alert('Wystąpił błąd podczas usuwania kategorii.');
+            },
+            dataType: 'json'
+        });
+    }
+
+    function showSuccessMessage(text) {
+        $('#categoryErrorMessage').hide().removeClass('auto-hide');
+        $('#categorySuccessMessage').text(text).show().addClass('auto-hide');
+    }
+
+    function showErrorMessage(text) {
+        $('#categorySuccessMessage').hide().removeClass('auto-hide');
+        $('#categoryErrorMessage').text(text).show().addClass('auto-hide');
+    }
+</script>

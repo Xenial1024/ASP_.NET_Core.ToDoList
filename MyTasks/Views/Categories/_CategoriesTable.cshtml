@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MyTasks.Core.Models.Domains.Category>
+
+<table class="table categories-table">
+    <thead>
+        <tr>
+            <th class="name-column">Nazwa</th>
+            <th class="actions-column">Akcje</th>
+        </tr>
+    </thead>
+    <tbody id="categoriesTableBody">
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td class="name-column">@category.Name</td>
+                <td class="actions-column">
+                    <div class="btn-group-actions">
+                        <button type="button" class="btn btn-primary btn-sm" onclick="editCategory(@category.Id, '@category.Name')">Edytuj</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteCategory(@category.Id)">Usuń</button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table> 

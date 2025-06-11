@@ -1,0 +1,162 @@
+﻿a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.navbar {
+    padding: 0.25rem;
+    font-size: 1.1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.navbar-nav .nav-link {
+    padding: 0.35rem;
+    margin-right: 0.25rem !important;
+    border-radius: 0.35rem;
+    border: 1px solid #def;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .navbar-nav .nav-link:hover {
+        background-color: #eff1f4 !important;
+    }
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 37px; /* tyle ile ma wysokość stopki */
+}
+
+.footer {
+    position: absolute;
+    width: 100%;
+    white-space: nowrap;
+    padding: 1px;
+    margin: 0;
+    line-height: 2;
+    height: 37px;
+    bottom: 0;
+}
+
+.validation-summary-errors ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    color: #f00;
+}
+
+.input-validation-error {
+    border: 1px solid #dc3545 !important;
+    background-color: #f00;
+}
+
+.field-validation-error {
+    color: #f00;
+    position: relative;
+    padding-left: 20px;
+}
+
+    .field-validation-error:before {
+        content: "❗";
+        position: absolute;
+        left: 5px;
+        top: 0;
+        color: #f00;
+        font-weight: bold;
+    }
+
+.categories-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+    .categories-table .name-column {
+        width: 70%;
+        word-wrap: break-word;
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .categories-table .actions-column {
+        width: 30%;
+        white-space: nowrap;
+    }
+
+.btn-group-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: nowrap;
+}
+
+    .btn-group-actions .btn {
+        flex-shrink: 0;
+        width: 85px;
+        font-size: 1rem;
+        padding: 0.2rem 0.35rem;
+    }
+
+.table td {
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.alert.auto-hide {
+    animation: fadeOut 4s forwards;
+}
+
+@keyframes fadeOut {
+    0%, 75% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

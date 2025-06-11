@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MyTasks.Core.Models.Domains.Task>
+
+<div id="tasksTable" style="margin-left: -50px;">
+    <table class="table mt-3 table-bordered" style="table-layout: fixed; width: 100%;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" style="width: 18vw;">Tytuł</th>
+                <th scope="col" style="width: 27vw;">Opis</th>
+                <th scope="col" style="width: 20vw;">Kategoria</th>
+                <th scope="col" style="width: 8vw;">Termin</th>
+                <th scope="col" style="width: 11vw;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var task in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("Task", "Task", 
+                                    new { id = task.Id })" 
+                               class="font-weight-bold">
+                            @task.Title
+                            </a>
+                        </td>
+                        <td>@task.Description</td>
+                        <td>@task.Category.Name</td>
+                        <td>@(DateOnly.TryParse(task.Term, out DateOnly d) ? d.ToString("dd-MM-yyyy") : "")</td>
+                        <td>
+                            @if (!task.IsExecuted)
+                            {
+                                <button class="btn btn-success btn-sm mr-2"
+                                        onclick="finishTask('@task.Id', this)">
+                                    Zrealizuj
+                                </button>
+                            }
+
+                            <button class="btn btn-danger btn-sm"
+                                    onclick="deleteTask('@task.Id', this)">
+                                Usuń
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="5">
+                        Brak zaplanowanych zadań do wykonania!
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
