@@ -146,17 +146,3 @@ body {
     white-space: normal;
     word-wrap: break-word;
 }
-
-.alert.auto-hide {
-    animation: fadeOut 4s forwards;
-}
-
-@keyframes fadeOut {
-    0%, 75% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
