@@ -29,12 +29,12 @@ namespace MyTasks.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Pole Email jest wymagane.")]
             [EmailAddress(ErrorMessage = "Podany email jest nieprawidłowy.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pole Hasło jest wymagane.")]
             [StringLength(100, ErrorMessage = "{0} musi mieć od {2} do {1} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
